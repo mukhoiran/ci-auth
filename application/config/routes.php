@@ -61,3 +61,9 @@ $route['news/update/(:any)'] = 'news/update/$1';
 $route['news/delete/(:any)'] = 'news/delete/$1';
 $route['news/(:any)'] = 'news/view/$1';
 $route['(:any)'] = 'pages/view/$1';
+
+$route['profile'] = 'user/profile';
+$route['register'] = 'auth/register';
+$route['login'] = 'auth/login';
+$route['logout'] = 'auth/logout';
+$route['verify/(:any)/(:any)'] = 'auth/verify_register/$1/$1';

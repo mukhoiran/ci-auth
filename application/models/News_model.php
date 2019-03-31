@@ -18,7 +18,6 @@ class News_model extends CI_Model {
     }
 
     public function set_news(){
-      $this->load->helper('url');
       $slug = url_title($this->input->post('title'), 'dash', TRUE);
       $data = array(
         'title' => $this->input->post('title'),
@@ -35,7 +34,6 @@ class News_model extends CI_Model {
     }
 
     public function update_news($id){
-      $this->load->helper('url');
       $slug = url_title($this->input->post('title'), 'dash', TRUE);
       $data = array(
         'title' => $this->input->post('title'),

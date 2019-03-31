@@ -6,11 +6,9 @@ class News extends CI_Controller {
   public function __construct(){
     parent::__construct();
     $this->load->model('news_model');
-    $this->load->helper('url_helper');
   }
 
-	public function index()
-	{
+	public function index(){
     $data['news'] = $this->news_model->get_news();
     $data['title'] = 'News archive';
 
@@ -24,9 +22,6 @@ class News extends CI_Controller {
   }
 
   public function create(){
-    $this->load->helper('form');
-    $this->load->library('form_validation');
-
     $this->form_validation->set_rules('title', 'Title', 'required');
     $this->form_validation->set_rules('text', 'Text', 'required');
 
@@ -39,8 +34,6 @@ class News extends CI_Controller {
   }
 
   public function update($id){
-    $this->load->helper('form');
-    $this->load->library('form_validation');
 
     $this->form_validation->set_rules('title', 'Title', 'required');
     $this->form_validation->set_rules('text', 'Text', 'required');
