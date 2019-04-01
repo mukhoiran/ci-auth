@@ -65,4 +65,73 @@ class Auth extends CI_Controller {
     }
   }
 
+  public function login(){
+    if($this->user_model->is_LoggedIn()){
+      redirect('news');
+    }
+
+    $this->form_validation->set_rules('email', 'Email', 'required|callback_checkEmail|callback_checkRole');
+    $this->form_validation->set_rules('password', 'Password', 'required|callback_checkPassword');
+
+    if($this->form_validation->run() == FALSE){
+      $this->load->view('layouts/header');
+      $this->load->view('auth/login');
+    }else{
+      //save user
+      $user = $this->user_model->get_user('email', $this->input->post('email'));
+
+      //save data in session
+      $_SESSION['user_id'] = $user['id'];
+      $_SESSION['logged_in'] = TRUE;
+
+      //redirect
+      redirect('news');
+    }
+  }
+
+
+  public function checkEmail($email){
+    if(!$this->user_model->get_user('email', $email)){
+      $this->form_validation->set_message('checkEmail', 'Email not registered');
+      return FALSE;
+    }
+
+    return TRUE;
+  }
+
+  public function checkPassword($password){
+    $user = $this->user_model->get_user('email', $this->input->post('email'));
+
+    if(!$this->user_model->checkPassword($user['email'], $password)){
+      $this->form_validation->set_message('checkPassword', 'Password is incorrect');
+      return FALSE;
+    }
+
+    return TRUE;
+  }
+
+  public function checkRole($email){
+    $user = $this->user_model->get_user('email', $email);
+    if($user['role'] == 0){
+      $this->form_validation->set_message('checkRole', 'Email is not active yet');
+      return FALSE;
+    }
+    return TRUE;
+  }
+
+  public function logout(){
+    $this->session->sess_destroy();
+    redirect('login');
+  }
+
+  public function forgetPassword(){
+    //send email, link/email/token
+  }
+
+  public function resetPassword(){
+    //get new PASSWORD
+    //update new password
+    //redrect news
+  }
+
 }

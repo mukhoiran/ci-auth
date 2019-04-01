@@ -41,4 +41,13 @@ class User_model extends CI_Model {
         return TRUE;
       }
     }
+
+    public function checkPassword($email, $password){
+      $hash = $this->get_user('email', $email)['password'];
+      if(password_verify($password, $hash)){
+        return TRUE;
+      }
+
+      return FALSE;
+    }
 }

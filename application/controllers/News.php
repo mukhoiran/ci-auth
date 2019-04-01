@@ -17,6 +17,7 @@ class News extends CI_Controller {
       $data['title'] = 'News archive';
       $data['user'] = $this->user_model->get_user('id', $_SESSION['user_id']);
 
+      $this->load->view('layouts/header');
       $this->load->view('news/index',$data);
     }
 	}
