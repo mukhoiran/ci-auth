@@ -6,13 +6,19 @@ class News extends CI_Controller {
   public function __construct(){
     parent::__construct();
     $this->load->model('news_model');
+    $this->load->model('user_model');
   }
 
 	public function index(){
-    $data['news'] = $this->news_model->get_news();
-    $data['title'] = 'News archive';
+    if(!$this->user_model->is_LoggedIn()){
+      redirect('login');
+    } else {
+      $data['news'] = $this->news_model->get_news();
+      $data['title'] = 'News archive';
+      $data['user'] = $this->user_model->get_user('id', $_SESSION['user_id']);
 
-		$this->load->view('news/index',$data);
+      $this->load->view('news/index',$data);
+    }
 	}
 
   public function view($slug = NULL){

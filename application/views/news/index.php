@@ -1,4 +1,5 @@
 <h1> Welcome to CRUD Codeigniter</h1>
+<?php var_dump($user) ?><hr>
 <a href="<?=site_url('news/create')?>">Create</a><hr>
 <?php foreach ($news as $news_item) { ?>
   <h1><a href="<?=site_url('news/'.$news_item['slug'])?>"><?=$news_item['title']?></a></h1>
