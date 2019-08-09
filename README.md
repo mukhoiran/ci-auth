@@ -1,2 +1,2 @@
 # ci-auth
-Documentation codeigniter Auth
+CodeIgniter Auth
